@@ -1,0 +1,38 @@
+
+extends ../layout
+
+
+block header
+    - cur = "transportes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/transportes/add')
+        #form-group
+            lable CNPJ Transportadora:
+            input.form-control(name='cnpj_transporte', type='text', value=transporte.cnpj_transporte)
+        #form-group
+            lable CPF Funcionário:
+            input.form-control(name='cpf_funcionario', type='text', value=transporte.cpf_funcionario)
+        br
+        #form-group
+            lable Data Transporte:
+            input.form-control(name='data_trans', type='date', value=transporte.data_trans)
+        #form-group
+            lable Hora Saída:
+            input.form-control(name='hora_saida', type='time', value=transporte.hora_saida)
+        #form-group
+            lable Hora Chegada:
+            input.form-control(name='hora_chegada', type='time', value=transporte.hora_chegada)
+        #form-group
+            lable Valor/Custo:
+            input.form-control(name='valor_trans', type='text', value=transporte.valor_trans)
+        #form-group
+            lable Carro:
+            input.form-control(name='carro', type='text', value=transporte.carro)
+
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

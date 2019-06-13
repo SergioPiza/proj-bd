@@ -1,0 +1,55 @@
+extends ../layout
+
+block header
+    - cur = "roteiros"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/roteiros/update/' + roteiro.id_contrato + '/' + encodeURIComponent(roteiro.nome_roteiro))
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=roteiro.id_contrato, disabled='disabled')
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_roteiro', type='text', value=roteiro.nome_roteiro, disabled='disabled')
+        #form-group
+            lable Descrição:
+            input.form-control(name='descricao', type='text', value=roteiro.descricao)
+        #form-group
+            lable CPF Roteirista:
+            input.form-control(name='cpf_roteirista', type='text', value=roteiro.cpf_roteirista)
+        #form-group
+            lable Quantidade de Rotativos:
+            input.form-control(name='qtd_rotativos', type='text', value=roteiro.qtd_rotativos)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Contrato
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Contrato
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o roteiro 
+                    b= roteiro.id_contrato
+                    | - 
+                    b= roteiro.nome_roteiro
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/roteiros/delete')
+                        input.form-control(name='id_contrato', type='hidden', value=roteiro.id_contrato)
+                        input.form-control(name='nome_roteiro', type='hidden', value=roteiro.nome_roteiro)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "equipamentos"
+
+block content
+    h1 #{title}
+    p
+        a(href='/equipamentos/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Equipamento
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(equipamentos[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each equipamento, i in equipamentos
+                        tr
+                            each key in equipamento
+                                td= key
+                            td
+                                a(href='/equipamentos/update/' + encodeURIComponent(equipamento.id_equip))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

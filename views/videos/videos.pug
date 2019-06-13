@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "videos"
+
+block content
+    h1 #{title}
+    p
+        a(href='/videos/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Vídeo
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(videos[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each video, i in videos
+                        tr
+                            each key in video
+                                td= key
+                            td
+                                a(href='/videos/update/' + encodeURIComponent(video.nome_arquivo) + '/' + encodeURIComponent(video.nome_rot) + '/' + video.cpf_diretor + '/' + video.id_contrato)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

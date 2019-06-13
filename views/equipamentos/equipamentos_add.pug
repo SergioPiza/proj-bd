@@ -1,0 +1,27 @@
+
+extends ../layout
+
+
+block header
+    - cur = "equipamentos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/equipamentos/add')
+        #form-group
+            lable ID Equipamento:
+            input.form-control(name='id_equip', type='text', value=equipamento.id_equip)
+        #form-group
+            lable Tipo:
+            input.form-control(name='tipo', type='text', value=equipamento.tipo)
+        #form-group
+            lable Modelo:
+            input.form-control(name='modelo', type='text', value=equipamento.modelo)
+        #form-group
+            lable Especificação:
+            input.form-control(name='especificacao', type='text', value=equipamento.especificacao)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

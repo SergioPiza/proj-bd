@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "preparacoes"
+
+block content
+    h1 #{title}
+    p
+        a(href='/preparacoes/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Preparação
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(preparacoes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each preparacao, i in preparacoes
+                        tr
+                            each key in preparacao
+                                td= key
+                            td
+                                a(href='/preparacoes/update/' + encodeURIComponent(preparacao.cnpj_tec) + '/' + (preparacao.cpf_ator) + '/' + encodeURIComponent(preparacao.data_prepa.toISOString().substring(0,10)))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

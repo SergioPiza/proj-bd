@@ -1,0 +1,26 @@
+
+extends ../layout
+
+block header
+    - cur = "rotativos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/rotativos/add')
+        #form-group
+            lable CPF:
+            input.form-control(name='cpf_rotativo', type='text', value=rotativo.cpf_rotativo)
+        #form-group
+            lable Categoria:
+            input.form-control(name='categoria', type='text', value=rotativo.categoria)
+        #form-group
+            lable Banco Horas:
+            input.form-control(name='bco_horas', type='text', value=rotativo.bco_horas)
+        #form-group
+            lable Setor:
+            input.form-control(name='setor', type='text', value=rotativo.setor)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

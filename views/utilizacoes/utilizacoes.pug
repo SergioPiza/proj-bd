@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "utilizacoes"
+
+block content
+    h1 #{title}
+    p
+        a(href='/utilizacoes/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Utilização
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(utilizacoes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each utilizacao, i in utilizacoes
+                        tr
+                            each key in utilizacao
+                                td= key
+                            td
+                                a(href='/utilizacoes/update/' + encodeURIComponent(utilizacao.cpf_audiovisu) + '/' + encodeURIComponent(utilizacao.id_equipa) + '/' + encodeURIComponent(utilizacao.data_uti.toISOString().substring(0,10)))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

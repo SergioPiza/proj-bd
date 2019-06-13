@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "participacoes"
+
+block content
+    h1 #{title}
+    p
+        a(href='/participacoes/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Participação
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(participacoes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each participacao, i in participacoes
+                        tr
+                            each key in participacao
+                                td= key
+                            td
+                                a(href='/participacoes/update/' + encodeURIComponent(participacao.cpf_rota) + '/' + encodeURIComponent(participacao.nome_arq))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

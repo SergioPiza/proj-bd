@@ -1,0 +1,24 @@
+
+extends ../layout
+
+
+block header
+    - cur = "utilizacoes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/utilizacoes/add')
+        #form-group
+            lable CPF AudioVisual:
+            input.form-control(name='cpf_audiovisu', type='text', value=utilizacao.cpf_audiovisu)
+        #form-group
+            lable ID Equipamento:
+            input.form-control(name='id_equipa', type='text', value=utilizacao.id_equipa)
+        #form-group
+            lable Data Utilização:
+            input.form-control(name='data_uti', type='date', value=utilizacao.data_uti)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

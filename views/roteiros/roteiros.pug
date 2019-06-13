@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "roteiros"
+
+block content
+    h1 #{title}
+    p
+        a(href='/roteiros/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Roteiro
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(roteiros[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each roteiro, i in roteiros
+                        tr
+                            each key in roteiro
+                                td= key
+                            td
+                                a(href='/roteiros/update/' + roteiro.id_contrato + '/' + encodeURIComponent(roteiro.nome_roteiro))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

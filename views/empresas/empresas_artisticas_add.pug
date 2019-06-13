@@ -1,0 +1,36 @@
+extends ../layout
+
+block header
+    - cur = "empresas_artisticas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/empresas/artisticas/add')
+        //-  cnpj_art,     nome,       valor,      interesse,       telefone, email, endereco
+
+        #form-group
+            lable CNPJ:
+            input.form-control(name='cnpj_art', type='text', value=empresa.cnpj_art)
+        #form-group
+            lable Nome:
+            input.form-control(name='nome', type='text', value=empresa.nome)
+        #form-group
+            lable E-mail:
+            input.form-control(name='email', type='text', value=empresa.email)
+        #form-group
+            lable Telefone:
+            input.form-control(name='telefone', type='text', value=empresa.telefone)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor', type='text', value=empresa.valor)
+        #form-group
+            lable Interesse:
+            input.form-control(name='interesse', type='text', value=empresa.interesse)
+        #form-group
+            lable Endereço:
+            input.form-control(name='endereco', type='text', value=empresa.endereco)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

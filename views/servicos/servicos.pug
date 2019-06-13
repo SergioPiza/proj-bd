@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "servicos"
+
+block content
+    h1 #{title}
+    p
+        a(href='/servicos/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Serviço
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(servicos[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each servico, i in servicos
+                        tr
+                            each key in servico
+                                td= key
+                            td
+                                a(href='/servicos/update/' + encodeURIComponent(servico.cnpj_tecnico) + '/' + encodeURIComponent(servico.cpf_actor) + '/' + encodeURIComponent(servico.nome_servico))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

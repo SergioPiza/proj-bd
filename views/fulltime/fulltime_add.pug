@@ -1,0 +1,21 @@
+extends ../layout
+
+block header
+    - cur = "fulltime"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/fulltime/add')
+        //-  cnpj_art,     nome,       valor,      interesse,       telefone, email, endereco
+
+        #form-group
+            lable CPF:
+            input.form-control(name='cpf_func', type='text', value=fulltime.cpf_func)
+        #form-group
+            lable Função:
+            input.form-control(name='funcao', type='text', value=fulltime.funcao)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

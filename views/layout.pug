@@ -1,0 +1,81 @@
+doctype html
+html
+    head
+        title Hello World
+        link(rel='stylesheet' href='/yarnres/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet' href='/font-awesome/css/font-awesome.min.css')
+    body
+        block header
+            - let cur = "index"
+
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
+            a.navbar-brand(href='/') Projeto BD
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarCollapse.collapse.navbar-collapse
+                .navbar-nav.mr-auto
+                    ul.navbar-nav.mr-auto(style='text-transform: capitalize;')
+                        li.nav-item(class= ( cur === "index" ? "active" : undefined))
+                            a.nav-link(href='/')
+                                | Home 
+                        if menuItems
+                            each menuItem in menuItems
+                                li.nav-item(class= ( cur === menuItem ? "active" : undefined))
+                                    a.nav-link(href='/' + menuItem.split('_').join('/'))= menuItem.split('-').join(' ').split('_').join(' ')
+
+                .div-inline.mt-2.mt-md-0
+                    ul.navbar-nav.mr-auto
+                        //- li.nav-item(class= ( cur === "index" ? "active" : undefined))
+                        //-     a.nav-link(href='/')
+                        //-         | Home 
+                        //- li.nav-item(class= ( cur === "funcionario" ? "active" : undefined))
+                        //-     a.nav-link(href='/funcionarios') Funcionários
+                        //- li.nav-item
+                        //-     a.nav-link.disabled(href='#', tabindex='-1', aria-disabled='true') Disabled
+
+        .container-fluid
+            if msg
+                if msg.success.content.length > 0
+                    .alert.alert-success.alert-dismissible(role='alert')
+                        h4.alert-heading #{ msg.success.content.length > 1 || !msg.success.title ? 'Sucesso!' : msg.success.title}
+                        p
+                            ul
+                                each m in msg.success.content
+                                    li= m
+                        button.close(type='button', data-dismiss='alert', aria-label='Close')
+                            span(aria-hidden='true') ×
+
+                if msg.warning.content.length > 0
+                    .alert.alert-warning.alert-dismissible(role='alert')
+                        h4.alert-heading #{ msg.warning.content.length > 1 || !msg.warning.title ? 'Aviso' : msg.warning.title}
+                        p
+                            ul
+                                each m in msg.warning.content
+                                    li= m
+                        button.close(type='button', data-dismiss='alert', aria-label='Close')
+                            span(aria-hidden='true') ×
+
+                if msg.error.content.length > 0
+                    .alert.alert-danger.alert-dismissible(role='alert')
+                        h4.alert-heading #{ msg.error.content.length > 1 || !msg.error.title ? 'Erro' : msg.error.title}
+                        p
+                            ul
+                                each m in msg.error.content
+                                    li= m
+                        button.close(type='button', data-dismiss='alert', aria-label='Close')
+                            span(aria-hidden='true') ×
+                        
+                        //- p
+                        //-     | Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.
+                        //- hr
+                        //- p.mb-0
+                        //-     | Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+
+            block content
+            br
+            hr
+            footer
+                p Copyright &copy; 2019
+
+        script(src='/yarnres/jquery/dist/jquery.js')
+        script(src='/yarnres/bootstrap/dist/js/bootstrap.js')

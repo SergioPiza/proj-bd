@@ -1,0 +1,49 @@
+extends ../layout
+
+block header
+    - cur = "locais-gravacao"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/locais-gravacao/update/' + encodeURIComponent(localGravacao.nome_local))
+        #form-group
+            lable Nome Local:
+            input.form-control(name='nome_local', type='text', value=localGravacao.nome_local, disabled='disabled')
+        #form-group
+            lable Endereço Local:
+            input.form-control(name='endereco_local', type='text', value=localGravacao.endereco_local)
+        #form-group
+            lable Tipo Ambiente:
+            input.form-control(name='tipo_amb', type='text', value=localGravacao.tipo_amb)
+        #form-group
+            lable Valor Local:
+            input.form-control(name='valor_local', type='text', value=localGravacao.valor_local)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Local de Gravação
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Local de Gravação
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o local de gravação 
+                    b= localGravacao.nome_local
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/locais-gravacao/delete')
+                        input.form-control(name='nome_local', type='hidden', value=localGravacao.nome_local)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

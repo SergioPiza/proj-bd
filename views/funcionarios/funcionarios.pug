@@ -1,0 +1,38 @@
+extends ../layout
+
+block header
+    - cur = "funcionarios"
+
+block content
+    h1 #{title}
+    p
+        a(href='/funcionarios/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Funcionário
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(funcionarios[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each funcionario, i in funcionarios
+                        tr
+                            each key in funcionario
+                                td= key
+                            td
+                                a(href='/funcionarios/update/' + funcionario.cpf)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit
+                            //- td
+                            //-     a(href='/funcionarios/remove/' + funcionario.cpf)
+                            //-         button.btn.btn-labeled.btn-danger(type='button')
+                            //-             span.btn-label
+                            //-                 i.fa.fa-times

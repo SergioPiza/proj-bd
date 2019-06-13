@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "transportes"
+
+block content
+    h1 #{title}
+    p
+        a(href='/transportes/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Transporte
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(transportes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each transporte, i in transportes
+                        tr
+                            each key in transporte
+                                td= key
+                            td
+                                a(href='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "audio-visual"
+
+block content
+    h1 #{title}
+    p
+        a(href='/audio-visual/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Audio-Visual
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(audioVisuais[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each audiovisual, i in audioVisuais
+                        tr
+                            each key in audiovisual
+                                td= key
+                            td
+                                a(href='/audio-visual/update/' + audiovisual.cpf_audio)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

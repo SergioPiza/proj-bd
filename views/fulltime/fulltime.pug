@@ -1,0 +1,32 @@
+extends ../layout
+
+block header
+    - cur = "fulltime"
+
+block content
+    h1 #{title}
+    p
+        a(href='/fulltime/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Fulltime
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(fulltimes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            th= val
+                tbody
+                    each fulltime, i in fulltimes
+                        tr
+                            each key in fulltime
+                                td= key
+                            td
+                                a(href='/fulltime/update/' + fulltime.cpf_func)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

@@ -1,0 +1,49 @@
+extends ../layout
+
+block header
+    - cur = "equipamentos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/equipamentos/update/' + encodeURIComponent(equipamento.id_equip))
+        #form-group
+            lable ID Equipamento:
+            input.form-control(name='id_equip', type='text', value=equipamento.id_equip, disabled='disabled')
+        #form-group
+            lable Tipo:
+            input.form-control(name='tipo', type='text', value=equipamento.tipo)
+        #form-group
+            lable Modelo:
+            input.form-control(name='modelo', type='text', value=equipamento.modelo)
+        #form-group
+            lable Especificação:
+            input.form-control(name='especificacao', type='text', value=equipamento.especificacao)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Equipamento
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Equipamento
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o equipamento 
+                    b= equipamento.id_equip
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/equipamentos/delete')
+                        input.form-control(name='id_equip', type='hidden', value=equipamento.id_equip)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

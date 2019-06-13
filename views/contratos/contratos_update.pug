@@ -1,0 +1,58 @@
+extends ../layout
+
+block header
+    - cur = "contratos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/contratos/update/' + contrato.id)
+        #form-group
+            lable ID:
+            input.form-control(name='id', type='text', value=contrato.id, disabled='disabled')
+        #form-group
+            lable CPF MKT:
+            input.form-control(name='cpf_mkt', type='text', value=contrato.cpf_mkt, disabled='disabled')
+        #form-group
+            lable CNPJ Cliente:
+            input.form-control(name='cnpj_cliente', type='text', value=contrato.cnpj_cliente, disabled='disabled')
+        #form-group
+            lable Data:
+            input.form-control(name='data_contra', type='date', value=contrato.data_contra)
+        #form-group
+            lable Público:
+            input.form-control(name='publico', type='text', value=contrato.publico)
+        #form-group
+            lable Tema:
+            input.form-control(name='tema', type='text', value=contrato.tema)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor', type='text', value=contrato.valor)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Contrato
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Contrato
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o contrato 
+                    b= contrato.id
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/contratos/delete')
+                        input.form-control(name='id', type='hidden', value=contrato.id)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

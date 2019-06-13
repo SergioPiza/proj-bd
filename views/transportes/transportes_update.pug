@@ -1,0 +1,59 @@
+extends ../layout
+
+block header
+    - cur = "transportes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte))
+        #form-group
+            lable CNPJ Transportadora:
+            input.form-control(name='cnpj_transporte', type='text', value=transporte.cnpj_transporte, disabled='disabled')
+        #form-group
+            lable CPF Funcionário:
+            input.form-control(name='cpf_funcionario', type='text', value=transporte.cpf_funcionario)
+        br
+        #form-group
+            lable Data Transporte:
+            input.form-control(name='data_trans', type='date', value=transporte.data_trans)
+        #form-group
+            lable Hora Saída:
+            input.form-control(name='hora_saida', type='time', value=transporte.hora_saida)
+        #form-group
+            lable Hora Chegada:
+            input.form-control(name='hora_chegada', type='time', value=transporte.hora_chegada)
+        #form-group
+            lable Valor/Custo:
+            input.form-control(name='valor_trans', type='text', value=transporte.valor_trans)
+        #form-group
+            lable Carro:
+            input.form-control(name='carro', type='text', value=transporte.carro)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Transporte
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Transporte
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o transporte 
+                    b= transporte.cnpj_transporte
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/transportes/delete')
+                        input.form-control(name='cnpj_transporte', type='hidden', value=transporte.cnpj_transporte)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

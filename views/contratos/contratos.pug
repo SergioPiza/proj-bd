@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "contratos"
+
+block content
+    h1 #{title}
+    p
+        a(href='/contratos/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Contrato
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(contratos[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each contrato, i in contratos
+                        tr
+                            each key in contrato
+                                td= key
+                            td
+                                a(href='/contratos/update/' + contrato.id)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

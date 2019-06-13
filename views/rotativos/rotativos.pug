@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "rotativos"
+
+block content
+    h1 #{title}
+    p
+        a(href='/rotativos/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Rotativo
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(rotativos[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each rotativo, i in rotativos
+                        tr
+                            each key in rotativo
+                                td= key
+                            td
+                                a(href='/rotativos/update/' + rotativo.cpf_rotativo)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

@@ -1,0 +1,52 @@
+extends ../layout
+
+block header
+    - cur = "utilizacoes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/utilizacoes/update/' + encodeURIComponent(utilizacao.cpf_audiovisu) + '/' + encodeURIComponent(utilizacao.id_equipa) + '/' + encodeURIComponent(utilizacao.data_uti))
+        #form-group
+            lable CPF AudioVisual:
+            input.form-control(name='cpf_audiovisu', type='text', value=utilizacao.cpf_audiovisu, disabled='disabled')
+        #form-group
+            lable ID Equipamento:
+            input.form-control(name='id_equipa', type='text', value=utilizacao.id_equipa, disabled='disabled')
+        #form-group
+            lable Data Utilização:
+            input.form-control(name='data_uti', type='date', value=utilizacao.data_uti, disabled='disabled')
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Utilização
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Utilização
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o utilização 
+                    b= utilizacao.cpf_audiovisu
+                    | -
+                    b= utilizacao.id_equipa
+                    | -
+                    b= utilizacao.data_uti
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/utilizacoes/delete')
+                        input.form-control(name='cpf_audiovisu', type='hidden', value=utilizacao.cpf_audiovisu)
+                        input.form-control(name='id_equipa', type='hidden', value=utilizacao.id_equipa)
+                        input.form-control(name='data_uti', type='hidden', value=utilizacao.data_uti)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

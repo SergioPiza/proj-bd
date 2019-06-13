@@ -1,0 +1,29 @@
+
+extends ../layout
+
+block header
+    - cur = "roteiros"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/roteiros/add')
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=roteiro.id_contrato)
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_roteiro', type='text', value=roteiro.nome_roteiro)
+        #form-group
+            lable Descrição:
+            input.form-control(name='descricao', type='text', value=roteiro.descricao)
+        #form-group
+            lable CPF Roteirista:
+            input.form-control(name='cpf_roteirista', type='text', value=roteiro.cpf_roteirista)
+        #form-group
+            lable Quantidade de Rotativos:
+            input.form-control(name='qtd_rotativos', type='text', value=roteiro.qtd_rotativos)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

@@ -1,0 +1,71 @@
+extends ../layout
+
+block header
+    - cur = "videos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/videos/update/' + encodeURIComponent(video.nome_arquivo) + '/' + encodeURIComponent(video.nome_rot) + '/' + video.cpf_diretor + '/' + video.id_contrato)
+        #form-group
+            lable Nome Arquivo:
+            input.form-control(name='nome_arquivo', type='text', value=video.nome_arquivo, disabled='disabled')
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_rot', type='text', value=video.nome_rot, disabled='disabled')
+        #form-group
+            lable CPF Diretor:
+            input.form-control(name='cpf_diretor', type='text', value=video.cpf_diretor, disabled='disabled')
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=video.id_contrato, disabled='disabled')
+        br
+        #form-group
+            lable Duracao:
+            input.form-control(name='duracao', type='text', value=video.duracao)
+        #form-group
+            lable Idioma:
+            input.form-control(name='idioma', type='text', value=video.idioma)
+        #form-group
+            lable Data Gravação:
+            input.form-control(name='data_grava', type='date', value=video.data_grava)
+        #form-group
+            lable Data Lançamento:
+            input.form-control(name='data_lanca', type='date', value=video.data_lanca)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Vídeo
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Vídeo
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o vídeo 
+                    b= video.nome_arquivo
+                    | -
+                    b= video.nome_rot
+                    | -
+                    b= video.cpf_diretor
+                    | -
+                    b= video.id_contrato
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/videos/delete')
+                        input.form-control(name='nome_arquivo', type='hidden', value=video.nome_arquivo)
+                        input.form-control(name='nome_rot', type='hidden', value=video.nome_rot)
+                        input.form-control(name='cpf_diretor', type='hidden', value=video.cpf_diretor)
+                        input.form-control(name='id_contrato', type='hidden', value=video.id_contrato)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

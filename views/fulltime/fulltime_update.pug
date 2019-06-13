@@ -1,0 +1,43 @@
+extends ../layout
+
+block header
+    - cur = "fulltime"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/fulltime/update/' + fulltime.cpf_func)
+        #form-group
+            lable CPF:
+            input.form-control(name='cpf_func', type='text', value=fulltime.cpf_func, disabled='disabled')
+        #form-group
+            lable Função:
+            input.form-control(name='funcao', type='text', value=fulltime.funcao)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Fulltime
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Fulltime
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o fulltime  
+                    b= fulltime.cpf_func
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/fulltime/delete')
+                        input.form-control(name='cpf_func', type='hidden', value=fulltime.cpf_func)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

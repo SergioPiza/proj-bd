@@ -1,0 +1,35 @@
+
+extends ../layout
+
+block header
+    - cur = "contratos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/contratos/add')
+        #form-group
+            lable ID:
+            input.form-control(name='id', type='text', value=contrato.id)
+        #form-group
+            lable CPF MKT:
+            input.form-control(name='cpf_mkt', type='text', value=contrato.cpf_mkt)
+        #form-group
+            lable CNPJ Cliente:
+            input.form-control(name='cnpj_cliente', type='text', value=contrato.cnpj_cliente)
+        #form-group
+            lable Data:
+            input.form-control(name='data_contra', type='date', value=contrato.data_contra)
+        #form-group
+            lable Público:
+            input.form-control(name='publico', type='text', value=contrato.publico)
+        #form-group
+            lable Tema:
+            input.form-control(name='tema', type='text', value=contrato.tema)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor', type='text', value=contrato.valor)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

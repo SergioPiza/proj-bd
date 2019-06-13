@@ -1,0 +1,72 @@
+extends ../layout
+
+block header
+    - cur = "gravacoes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/gravacoes/update/' + encodeURIComponent(gravacao.nome_arq) + '/' + encodeURIComponent(gravacao.nome_loc) + '/' + gravacao.cpf_diretor)
+        #form-group
+            lable Nome Arquivo:
+            input.form-control(name='nome_arq', type='text', value=gravacao.nome_arq, disabled='disabled')
+        #form-group
+            lable CPF Diretor:
+            input.form-control(name='cpf_diretor', type='text', value=gravacao.cpf_diretor, disabled='disabled')
+        #form-group
+            lable Nome Local:
+            input.form-control(name='nome_loc', type='text', value=gravacao.nome_loc, disabled='disabled')
+        br
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_rot', type='text', value=gravacao.nome_rot)
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=gravacao.id_contrato)
+        br
+        #form-group
+            lable Data Gravação:
+            input.form-control(name='data_gravacao', type='date', value=gravacao.data_gravacao)
+        #form-group
+            lable Horário Chegada:
+            input.form-control(name='hora_chegada', type='time', value=gravacao.hora_chegada)
+        #form-group
+            lable Horário Saída:
+            input.form-control(name='hora_saida', type='time', value=gravacao.hora_saida)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor', type='text', value=gravacao.valor)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Gravação
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Gravação
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar a gravação 
+                    b= gravacao.nome_arq
+                    | -
+                    b= gravacao.cpf_diretor
+                    | -
+                    b= gravacao.nome_loc
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/gravacoes/delete')
+                        input.form-control(name='nome_arq', type='hidden', value=gravacao.nome_arq)
+                        input.form-control(name='cpf_diretor', type='hidden', value=gravacao.cpf_diretor)
+                        input.form-control(name='nome_loc', type='hidden', value=gravacao.nome_loc)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

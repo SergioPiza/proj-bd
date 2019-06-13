@@ -1,0 +1,52 @@
+extends ../layout
+
+block header
+    - cur = "servicos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/servicos/update/' + encodeURIComponent(servico.cnpj_tecnico) + '/' + encodeURIComponent(servico.cpf_actor) + '/' + encodeURIComponent(servico.nome_servico))
+        #form-group
+            lable CNPJ Técnico:
+            input.form-control(name='cnpj_tecnico', type='text', value=servico.cnpj_tecnico, disabled='disabled')
+        #form-group
+            lable CPF Ator:
+            input.form-control(name='cpf_actor', type='text', value=servico.cpf_actor, disabled='disabled')
+        #form-group
+            lable Nome Serviço:
+            input.form-control(name='nome_servico', type='text', value=servico.nome_servico, disabled='disabled')
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Serviço
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Serviço
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o serviço 
+                    b= servico.cnpj_tecnico
+                    | -
+                    b= servico.cpf_actor
+                    | -
+                    b= servico.nome_servico
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/servicos/delete')
+                        input.form-control(name='cnpj_tecnico', type='hidden', value=servico.cnpj_tecnico)
+                        input.form-control(name='cpf_actor', type='hidden', value=servico.cpf_actor)
+                        input.form-control(name='nome_servico', type='hidden', value=servico.nome_servico)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

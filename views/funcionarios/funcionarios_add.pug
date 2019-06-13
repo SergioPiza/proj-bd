@@ -1,0 +1,37 @@
+extends ../layout
+
+block header
+    - cur = "funcionarios"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/funcionarios/add')
+        #form-group
+            lable CPF:
+            input.form-control(name='cpf', type='text', value=funcionario.cpf)
+        #form-group
+            lable Nome:
+            input.form-control(name='nome', type='text', value=funcionario.nome)
+        #form-group
+            lable E-mail:
+            input.form-control(name='email', type='text', value=funcionario.email)
+        #form-group
+            lable Telefone:
+            input.form-control(name='telefone', type='text', value=funcionario.telefone)
+        #form-group
+            lable Endereço:
+            input.form-control(name='endereco', type='text', value=funcionario.endereco)
+        #form-group
+            lable Vínculo:
+            input.form-control(name='vinculo', type='text', value=funcionario.vinculo)
+        #form-group
+            lable Data de Nascimento:
+            input.form-control(name='data_nasc', type='date', value=funcionario.data_nasc)
+        #form-group
+            lable Salário:
+            input.form-control(name='salario', type='text', value=funcionario.salario)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

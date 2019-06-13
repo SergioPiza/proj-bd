@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "locais-gravacao"
+
+block content
+    h1 #{title}
+    p
+        a(href='/locais-gravacao/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Local de Gravação
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(locaisGravacao[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each localGravacao, i in locaisGravacao
+                        tr
+                            each key in localGravacao
+                                td= key
+                            td
+                                a(href='/locais-gravacao/update/' + encodeURIComponent(localGravacao.nome_local))
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

@@ -1,0 +1,41 @@
+
+extends ../layout
+
+
+block header
+    - cur = "videos"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/videos/add')
+        #form-group
+            lable Nome Arquivo:
+            input.form-control(name='nome_arquivo', type='text', value=video.nome_arquivo)
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_rot', type='text', value=video.nome_rot)
+        #form-group
+            lable CPF Diretor:
+            input.form-control(name='cpf_diretor', type='text', value=video.cpf_diretor)
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=video.id_contrato)
+        br
+        #form-group
+            lable Duracao:
+            input.form-control(name='duracao', type='text', value=video.duracao)
+        #form-group
+            lable Idioma:
+            input.form-control(name='idioma', type='text', value=video.idioma)
+        #form-group
+            lable Data Gravação:
+            input.form-control(name='data_grava', type='date', value=video.data_grava)
+        #form-group
+            lable Data Lançamento:
+            input.form-control(name='data_lanca', type='date', value=video.data_lanca)
+
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

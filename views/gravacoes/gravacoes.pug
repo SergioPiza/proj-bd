@@ -1,0 +1,33 @@
+extends ../layout
+
+block header
+    - cur = "gravacoes"
+
+block content
+    h1 #{title}
+    p
+        a(href='/gravacoes/add')
+            button.btn.btn-labeled.btn-success(type='button')
+                span.btn-label
+                    i.fa.fa-plus
+                    |   Adicionar Gravação
+    if !err
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(gravacoes[0])
+                        - keys.push(''/*, ''*/)
+                        each val in keys
+                            if val == "data_nasc"
+                            th= val
+                tbody
+                    each gravacao, i in gravacoes
+                        tr
+                            each key in gravacao
+                                td= key
+                            td
+                                a(href='/gravacoes/update/' + encodeURIComponent(gravacao.nome_arq) + '/' + encodeURIComponent(gravacao.nome_loc) + '/' + gravacao.cpf_diretor)
+                                    button.btn.btn-labeled.btn-warning(type='button')
+                                        span.btn-label
+                                            i.fa.fa-edit

@@ -1,0 +1,43 @@
+extends ../layout
+
+block header
+    - cur = "audio-visual"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/audio-visual/update/' + audioVisual.cpf_audio)
+        #form-group
+            lable CPF:
+            input.form-control(name='cpf_audio', type='text', value=audioVisual.cpf_audio, disabled='disabled')
+        #form-group
+            lable Categoria:
+            input.form-control(name='categoria', type='text', value=audioVisual.categoria)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Fulltime
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Fulltime
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar o audio-visual  
+                    b= audioVisual.cpf_audio
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/audio-visual/delete')
+                        input.form-control(name='cpf_audio', type='hidden', value=audioVisual.cpf_audio)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

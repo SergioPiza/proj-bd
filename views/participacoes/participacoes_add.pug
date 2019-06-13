@@ -1,0 +1,35 @@
+extends ../layout
+
+
+block header
+    - cur = "participacoes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/participacoes/add')
+        #form-group
+            lable CPF Rotativo:
+            input.form-control(name='cpf_rota', type='text', value=participacao.cpf_rota)
+        #form-group
+            lable Nome Arquivo:
+            input.form-control(name='nome_arq', type='text', value=participacao.nome_arq)
+        br
+        #form-group
+            lable CPF Diretor:
+            input.form-control(name='cpf_diretor', type='text', value=participacao.cpf_diretor)
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_rot', type='text', value=participacao.nome_rot)
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text', value=participacao.id_contrato)
+        br
+        #form-group
+            lable Tempo:
+            input.form-control(name='tempo', type='text', value=participacao.tempo)
+
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar

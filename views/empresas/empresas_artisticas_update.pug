@@ -1,0 +1,58 @@
+extends ../layout
+
+block header
+    - cur = "empresas_artisticas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/empresas/artisticas/update/' + empresa.cnpj_art)
+        #form-group
+            lable CNPJ:
+            input.form-control(name='cnpj_art', type='text', value=empresa.cnpj_art, disabled='disabled')
+        #form-group
+            lable Nome:
+            input.form-control(name='nome', type='text', value=empresa.nome)
+        #form-group
+            lable E-mail:
+            input.form-control(name='email', type='text', value=empresa.email)
+        #form-group
+            lable Telefone:
+            input.form-control(name='telefone', type='text', value=empresa.telefone)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor', type='text', value=empresa.valor)
+        #form-group
+            lable Interesse:
+            input.form-control(name='interesse', type='text', value=empresa.interesse)
+        #form-group
+            lable Endereço:
+            input.form-control(name='endereco', type='text', value=empresa.endereco)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-send
+                |   Salvar
+        |  
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#exampleModalCenter')
+            span.btn-label
+                i.fa.fa-trash
+                |   Apagar Empresa
+    #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLongTitle.modal-title Apagar Empresa
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    | Deseja mesmo apagar a empresa  
+                    b= empresa.cnpj_art
+                    |?
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
+                    form(method='POST', action='/empresas/artisticas/delete')
+                        input.form-control(name='cnpj_art', type='hidden', value=empresa.cnpj_art)
+                        button.btn.btn-danger(type='submit')
+                            span.btn-label
+                                i.fa.fa-send
+                                |  Sim, apagar

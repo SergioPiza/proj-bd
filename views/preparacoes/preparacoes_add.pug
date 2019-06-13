@@ -1,0 +1,27 @@
+
+extends ../layout
+
+
+block header
+    - cur = "preparacoes"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/preparacoes/add')
+        #form-group
+            lable CNPJ Tec:
+            input.form-control(name='cnpj_tec', type='text', value=preparacao.cnpj_tec)
+        #form-group
+            lable CPF Ator:
+            input.form-control(name='cpf_ator', type='text', value=preparacao.cpf_ator)
+        #form-group
+            lable Data Preparação:
+            input.form-control(name='data_prepa', type='date', value=preparacao.data_prepa)
+        #form-group
+            lable Valor:
+            input.form-control(name='valor_prep', type='text', value=preparacao.valor_prep)
+        br
+        button.btn.btn-primary(type='submit')
+            span.btn-label
+                i.fa.fa-plus
+                |   Adicionar
