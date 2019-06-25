@@ -5,17 +5,17 @@ block header
 
 block content
     h1 #{title}
-    form(method='POST', action='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte))
+    form(method='POST', action='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte) + '/' + encodeURIComponent(transporte.cpf_funcionario) + '/' + encodeURIComponent(transporte.data_trans) )
         #form-group
             lable CNPJ Transportadora:
             input.form-control(name='cnpj_transporte', type='text', value=transporte.cnpj_transporte, disabled='disabled')
         #form-group
             lable CPF Funcionário:
-            input.form-control(name='cpf_funcionario', type='text', value=transporte.cpf_funcionario)
-        br
+            input.form-control(name='cpf_funcionario', type='text', value=transporte.cpf_funcionario, disabled='disabled')
         #form-group
             lable Data Transporte:
-            input.form-control(name='data_trans', type='date', value=transporte.data_trans)
+            input.form-control(name='data_trans', type='date', value=transporte.data_trans, disabled='disabled')
+        br
         #form-group
             lable Hora Saída:
             input.form-control(name='hora_saida', type='time', value=transporte.hora_saida)
@@ -48,11 +48,15 @@ block content
                 .modal-body
                     | Deseja mesmo apagar o transporte 
                     b= transporte.cnpj_transporte
+                    b= transporte.cpf_funcionario
+                    b= transporte.data_trans
                     |?
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
                     form(method='POST', action='/transportes/delete')
                         input.form-control(name='cnpj_transporte', type='hidden', value=transporte.cnpj_transporte)
+                        input.form-control(name='cpf_funcionario', type='hidden', value=transporte.cpf_funcionario)
+                        input.form-control(name='data_trans', type='hidden', value=transporte.data_trans)
                         button.btn.btn-danger(type='submit')
                             span.btn-label
                                 i.fa.fa-send

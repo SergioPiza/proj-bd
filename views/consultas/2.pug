@@ -1,0 +1,23 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/2')
+        small
+            i Exemplo
+        pre
+            | SELECT F.NOME FROM FUNCIONARIO F 
+            |   JOIN FULLTIME FU 
+            |     ON FU.FUNCAO = 'ROTEIRISTA' AND F.CPF = FU.CPF_FUNC
+            
+        #form-group
+            lable Função:
+            input.form-control(name='funcao', type='text')
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

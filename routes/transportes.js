@@ -2,7 +2,9 @@ const express = require('express')
 const connect = require('./../connect')
 
 // Conectando à base de dados
-const { Pool } = require('pg')
+const {
+    Pool
+} = require('pg')
 const bd = new Pool(connect.onlinebd)
 
 const router = express.Router()
@@ -32,15 +34,21 @@ router.get('/', async (req, res) => {
     let err = false
 
     let msg = {
-        error: req.flash(sendMsg.error) || { content: [] },
-        success: req.flash(sendMsg.success) || { content: [] },
-        warning: req.flash(sendMsg.warning) || { content: [] }
+        error: req.flash(sendMsg.error) || {
+            content: []
+        },
+        success: req.flash(sendMsg.success) || {
+            content: []
+        },
+        warning: req.flash(sendMsg.warning) || {
+            content: []
+        }
     }
 
     await bd.query({
-        //rowMode: 'array',
-        text: 'SELECT * FROM TRANSPORTA'
-    })
+            //rowMode: 'array',
+            text: 'SELECT * FROM TRANSPORTA'
+        })
         .then(res => transp = (res.rows))
         .catch(e => msg.error.content.push('Näo foi possível completar a query :('))
 
@@ -60,9 +68,15 @@ router.get('/', async (req, res) => {
 // ----- TRANSPORTES ADD -----
 router.get('/add', async (req, res) => {
     let msg = {
-        error: req.flash(sendMsg.error) || { content: [] },
-        success: req.flash(sendMsg.success) || { content: [] },
-        warning: req.flash(sendMsg.warning) || { content: [] }
+        error: req.flash(sendMsg.error) || {
+            content: []
+        },
+        success: req.flash(sendMsg.success) || {
+            content: []
+        },
+        warning: req.flash(sendMsg.warning) || {
+            content: []
+        }
     }
 
     res.render('transportes/transportes_add', {
@@ -100,7 +114,7 @@ router.post('/add', async (req, res) => {
 
     await bd.query(`INSERT INTO TRANSPORTA (cnpj_transporte, cpf_funcionario, data_trans, hora_chegada, hora_saida, valor_trans, carro)
                     VALUES($1, $2, $3, $4, $5, $6, $7)`,
-        [form.cnpj_transporte, form.cpf_funcionario, form.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
+            [form.cnpj_transporte, form.cpf_funcionario, form.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
         .then(r => {
             req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte}" criado!`));
             res.redirect('/transportes')
@@ -114,17 +128,24 @@ router.post('/add', async (req, res) => {
 })
 
 // ----- TRANSPORTES UPDATE -----
-router.get('/update/:cnpj_transporte', async (req, res) => {
+router.get('/update/:cnpj_transporte/:cpf_funcionario/:data_trans', async (req, res) => {
     let msg = {
-        error: req.flash(sendMsg.error) || { content: [] },
-        success: req.flash(sendMsg.success) || { content: [] },
-        warning: req.flash(sendMsg.warning) || { content: [] }
+        error: req.flash(sendMsg.error) || {
+            content: []
+        },
+        success: req.flash(sendMsg.success) || {
+            content: []
+        },
+        warning: req.flash(sendMsg.warning) || {
+            content: []
+        }
     }
 
     let transp = []
     let err = false
 
-    await bd.query('SELECT * FROM TRANSPORTA WHERE cnpj_transporte=$1', [req.params.cnpj_transporte])
+    await bd.query('SELECT * FROM TRANSPORTA WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3',
+            [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans])
         .then(res => transp = (res.rows))
         .catch(e => err = true)
     if (transp.length === 0) err = true
@@ -153,9 +174,13 @@ router.get('/update/:cnpj_transporte', async (req, res) => {
         msg: msg
     })
 })
-router.post('/update/:cnpj_transporte', async (req, res) => {
+router.post('/update/:cnpj_transporte/:cpf_funcionario/:data_trans', async (req, res) => {
+    console.log(12345)
     let form = req.body
     form.cnpj_transporte = req.params.cnpj_transporte
+    form.cpf_funcionario = req.params.cpf_funcionario
+    form.data_trans = req.params.data_trans
+    console.log(form)
 
     let v = new validator(form, validatorFormTransp)
     let valid = await v.check();
@@ -167,23 +192,23 @@ router.post('/update/:cnpj_transporte', async (req, res) => {
         }
         req.flash(sendMsg.error, sendMsg.newMsg(msgs));
         req.flash('transpBackup', form)
-        return res.redirect('/transportes/update/' + req.params.cnpj_transporte)
+        return res.redirect('/transportes/update/' + encodeURIComponent(form.cnpj_transporte) + '/' + form.cpf_funcionario + '/' + form.data_trans)
     }
 
     //cnpj_transporte, cpf_funcionario, data_trans, hora_chegada, hora_saida, valor_trans, carro
     await bd.query(`UPDATE TRANSPORTA 
-                    SET cpf_funcionario=$2, data_trans=$3, hora_chegada=$4, hora_saida=$5, valor_trans=$6, carro=$7
-                    WHERE cnpj_transporte=$1`,
-        [req.params.cnpj_transporte, form.cpf_funcionario, form.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
+                    SET hora_chegada=$4, hora_saida=$5, valor_trans=$6, carro=$7
+                    WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3,`,
+            [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
         .then(r => {
-            req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte}" alterado!`));
+            req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte} - ${form.cpf_funcionario} - ${form.data_trans}" alterado!`));
             res.redirect('/transportes')
         })
         .catch(e => {
-            req.flash(sendMsg.error, sendMsg.newMsg(`Não foi possível alterar o transporte :( || ${e.routine}`));
+            req.flash(sendMsg.error, sendMsg.newMsg(`Não foi possível alterar o transporte "${form.cnpj_transporte} - ${form.cpf_funcionario} - ${form.data_trans}" :( || ${e.routine}`));
             req.flash('transpBackup', form)
             console.log(e)
-            return res.redirect('/transportes/update/' + req.params.cnpj_transporte)
+            return res.redirect('/transportes/update/' + encodeURIComponent(form.cnpj_transporte) + '/' + form.cpf_funcionario + '/' + form.data_trans)
         })
 })
 
@@ -191,13 +216,13 @@ router.post('/update/:cnpj_transporte', async (req, res) => {
 router.post('/delete', async (req, res) => {
     let form = req.body
     await bd.query(`DELETE FROM TRANSPORTA 
-                    WHERE cnpj_transporte=$1`, [form.cnpj_transporte])
+                    WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3`, [form.cnpj_transporte, form.cpf_funcionario, form.data_trans])
         .then(r => {
-            req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte}" apagado!`));
+            req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte} - ${form.cpf_funcionario} - ${form.data_trans}" apagado!`));
             res.redirect('/transportes')
         })
         .catch(e => {
-            req.flash(sendMsg.error, sendMsg.newMsg(`Não foi possível apagar o transporte "${form.cnpj_transporte}" ! || ${e.routine}`));
+            req.flash(sendMsg.error, sendMsg.newMsg(`Não foi possível apagar o transporte "${form.cnpj_transporte} - ${form.cpf_funcionario} - ${form.data_trans}" ! || ${e.routine}`));
             console.log(e)
             return res.redirect('/transportes')
         })

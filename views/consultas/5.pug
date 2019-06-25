@@ -1,0 +1,21 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/5')
+        small
+            i Exemplo
+        pre
+            | SELECT DATA_LANCA, DATA_GRAVA FROM VIDEO
+            |   WHERE NOME_ROT = 'ESPALHE O AMOR'
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_rot', type='text')
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

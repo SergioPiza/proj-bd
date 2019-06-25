@@ -1,0 +1,25 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/7')
+        small
+            i Exemplo
+        pre
+            | SELECT F.NOME, V.NOME_ROT
+            |    FROM ROTATIVO R
+            |        LEFT JOIN FUNCIONARIO F
+            |            ON R.CPF_ROTATIVO = F.CPF
+            |        JOIN PARTICIPA P 
+            |            ON P.CPF_ROTA = F.CPF
+            |        JOIN VIDEO V
+            |            ON P.NOME_ARQ = V.NOME_ARQUIVO
+
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

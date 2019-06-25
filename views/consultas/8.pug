@@ -1,0 +1,19 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/8')
+        small
+            i Digite sua própria query
+        #form-group
+            lable Query:
+            textarea.form-control(name='query')
+
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

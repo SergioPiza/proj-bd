@@ -1,0 +1,26 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/3')
+        small
+            i Exemplo
+        pre
+            | SELECT EMP.NOME, R.NOME_ROTEIRO, R.DESCRICAO 
+            |   FROM EMP_CLIENTE EMP 
+            |     JOIN CONTRATO C
+            |       ON C.TEMA= 'NATAL' AND EMP.CNPJ_CLI = C.CNPJ_CLIENTE 
+            |     JOIN ROTEIRO R 
+            |       ON C.ID = R.ID_CONTRATO
+
+        #form-group
+            lable Tema:
+            input.form-control(name='tema', type='text')
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

@@ -1,0 +1,20 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/6')
+        small
+            i Exemplo
+        pre
+            | SELECT SUM(F.SALARIO) FROM FUNCIONARIO F  
+            |   JOIN FULLTIME FU 
+            |     ON F.CPF = FU.CPF_FUNC
+
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

@@ -1,0 +1,27 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    if consultas && consultas[0]
+        p
+            a(href='/consultas')
+                button.btn.btn-labeled.btn-info(type='button')
+                    span.btn-label
+                        i.fa.fa-window-close
+                        |   Limpar Consulta
+
+        .table-responsive
+            table.table.table-hover
+                thead.thead-dark
+                    tr
+                        - var keys = Object.keys(consultas[0])
+                        each val in keys
+                            th= val
+                tbody
+                    each consulta, i in consultas
+                        tr
+                            each key in consulta
+                                td= key

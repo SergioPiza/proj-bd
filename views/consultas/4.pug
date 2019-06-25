@@ -1,0 +1,24 @@
+extends ../layout
+
+block header
+    - cur = "consultas"
+
+block content
+    h1 #{title}
+    form(method='POST', action='/consultas/4')
+        small
+            i Exemplo
+        pre
+            | SELECT QTD_ROTATIVOS FROM ROTEIRO
+            |   WHERE NOME_ROTEIRO = 'ESPALHE O AMOR' OR ID_CONTRATO = '1'
+        #form-group
+            lable Nome Roteiro:
+            input.form-control(name='nome_roteiro', type='text')
+        #form-group
+            lable ID Contrato:
+            input.form-control(name='id_contrato', type='text')
+        br
+        button.btn.btn-info(type='submit')
+            span.btn-label
+                i.fa.fa-search
+                |   Consulta

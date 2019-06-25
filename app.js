@@ -7,11 +7,15 @@ const app = express()
 
 
 // Conectando à base de dados
-const { Pool } = require('pg')
+const {
+    Pool
+} = require('pg')
 const bd = new Pool(connect.onlinebd)
 
 // Iniciando Body Parser
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.use(bodyParser.json())
 
 // Setando pasta pública (para css/imagens/etc)
@@ -110,8 +114,10 @@ app.use('/participacoes', participacoes)
 let transportes = require('./routes/transportes')
 app.use('/transportes', transportes)
 
+let consultas = require('./routes/consultas')
+app.use('/consultas', consultas)
+
 
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
-

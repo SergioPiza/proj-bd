@@ -26,7 +26,7 @@ block content
                             each key in transporte
                                 td= key
                             td
-                                a(href='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte))
+                                a(href='/transportes/update/' + encodeURIComponent(transporte.cnpj_transporte) + '/' + encodeURIComponent(transporte.cpf_funcionario) + '/' + encodeURIComponent(transporte.data_trans.toISOString().substring(0,10)))
                                     button.btn.btn-labeled.btn-warning(type='button')
                                         span.btn-label
                                             i.fa.fa-edit
