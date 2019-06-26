@@ -1,0 +1,6 @@
+@media (min-width: 12000px) .navbar-expand-xl2 {
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}

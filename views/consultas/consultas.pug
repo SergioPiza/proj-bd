@@ -25,3 +25,27 @@ block content
                         tr
                             each key in consulta
                                 td= key
+    else
+        p
+            - let i = 1
+            while i < 8
+                a(href='/consultas/' + i)
+                    button.btn.btn-labeled.btn-info(type='button')
+                        span.btn-label
+                            i.fa.fa-search
+                            |   Consulta  
+                            span=i
+                            - i++
+                |    
+        hr
+        p
+            form(method='POST', action='/consultas/custom')
+                #form-group
+                    lable Execute sua própria query:
+                    textarea.form-control(name='query')
+
+                br
+                button.btn.btn-info(type='submit')
+                    span.btn-label
+                        i.fa.fa-search
+                        |   Consulta

@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
     // }
 
     res.render('consultas/consultas', {
-        title: 'Consultas',
+        title: 'Consultas Personalizadas',
         contratos: cont,
         msg: msg,
         err: err
@@ -88,8 +88,8 @@ router.post('/:id_consulta', async (req, res) => {
     switch (id_consulta) {
         case 1:
             query = `select count(*) from utilizacao u 
-                        where u.CPF_AUDIOVISU='111.111.111-44' 
-                            AND extract(MONTH from TIMESTAMP u.DATA_UTI)='4'`
+                        where u.CPF_AUDIOVISU='111.111.111-77' 
+                            AND extract('MONTH' from u.DATA_UTI)='06'`
             params = []
 
         case 2:
@@ -110,7 +110,7 @@ router.post('/:id_consulta', async (req, res) => {
 
         case 4:
             query = `SELECT QTD_ROTATIVOS FROM ROTEIRO
-                        WHERE NOME_ROTEIRO=UPPER($1) OR ID_CONTRATO=$2`
+                        WHERE NOME_ROTEIRO=UPPER($1) AND ID_CONTRATO=$2`
             params = [form.nome_roteiro, form.id_contrato]
             break
 
@@ -139,17 +139,21 @@ router.post('/:id_consulta', async (req, res) => {
             params = []
             break
 
-        case 8:
+        default:
             query = form.query
             break
     }
 
     await bd.query(query, params)
+
         .then(r => {
+            console.log(r.rows)
+
             if (r.rows.length < 1) {
                 req.flash(sendMsg.warning, sendMsg.newMsg(`A consulta não retornou nenhum resultado!`))
                 return res.redirect('/consultas')
             } else {
+
                 res.render('consultas/consultas', {
                     title: 'Consultas',
                     consultas: r.rows,

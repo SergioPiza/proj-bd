@@ -10,7 +10,7 @@ block content
             i Exemplo
         pre
             | SELECT QTD_ROTATIVOS FROM ROTEIRO
-            |   WHERE NOME_ROTEIRO = 'ESPALHE O AMOR' OR ID_CONTRATO = '1'
+            |   WHERE NOME_ROTEIRO = 'ESPALHE O AMOR' AND ID_CONTRATO = '1'
         #form-group
             lable Nome Roteiro:
             input.form-control(name='nome_roteiro', type='text')

@@ -46,9 +46,9 @@ router.get('/', async (req, res) => {
     }
 
     await bd.query({
-            //rowMode: 'array',
-            text: 'SELECT * FROM TRANSPORTA'
-        })
+        //rowMode: 'array',
+        text: 'SELECT * FROM TRANSPORTA'
+    })
         .then(res => transp = (res.rows))
         .catch(e => msg.error.content.push('Näo foi possível completar a query :('))
 
@@ -114,7 +114,7 @@ router.post('/add', async (req, res) => {
 
     await bd.query(`INSERT INTO TRANSPORTA (cnpj_transporte, cpf_funcionario, data_trans, hora_chegada, hora_saida, valor_trans, carro)
                     VALUES($1, $2, $3, $4, $5, $6, $7)`,
-            [form.cnpj_transporte, form.cpf_funcionario, form.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
+        [form.cnpj_transporte, form.cpf_funcionario, form.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
         .then(r => {
             req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte}" criado!`));
             res.redirect('/transportes')
@@ -145,7 +145,7 @@ router.get('/update/:cnpj_transporte/:cpf_funcionario/:data_trans', async (req, 
     let err = false
 
     await bd.query('SELECT * FROM TRANSPORTA WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3',
-            [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans])
+        [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans])
         .then(res => transp = (res.rows))
         .catch(e => err = true)
     if (transp.length === 0) err = true
@@ -195,11 +195,12 @@ router.post('/update/:cnpj_transporte/:cpf_funcionario/:data_trans', async (req,
         return res.redirect('/transportes/update/' + encodeURIComponent(form.cnpj_transporte) + '/' + form.cpf_funcionario + '/' + form.data_trans)
     }
 
+    console.log([req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
     //cnpj_transporte, cpf_funcionario, data_trans, hora_chegada, hora_saida, valor_trans, carro
     await bd.query(`UPDATE TRANSPORTA 
                     SET hora_chegada=$4, hora_saida=$5, valor_trans=$6, carro=$7
-                    WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3,`,
-            [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
+                    WHERE cnpj_transporte=$1 AND cpf_funcionario=$2 AND data_trans=$3`,
+        [req.params.cnpj_transporte, req.params.cpf_funcionario, req.params.data_trans, form.hora_chegada, form.hora_saida, form.valor_trans, form.carro])
         .then(r => {
             req.flash(sendMsg.success, sendMsg.newMsg(`Transporte "${form.cnpj_transporte} - ${form.cpf_funcionario} - ${form.data_trans}" alterado!`));
             res.redirect('/transportes')
