@@ -21,7 +21,7 @@
         "popper.js": "^1.15.0",
         "pug": "^2.0.3",
         "req-flash": "0.0.3",
-        "sequelize": "^5.8.7"
+        "sequelize": "^5.15.1"
     },
     "devDependencies": {
         "nodemon": "^1.19.1"
